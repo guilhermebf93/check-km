@@ -1,0 +1,20 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+@mixin hover-opacity {
+  transition: opacity var(--transition-default);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
