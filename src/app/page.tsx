@@ -1,10 +1,20 @@
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+//import { getCurrentUser } from '@/lib/auth/get-user'
 
-import styles from './page.module.css';
+export default async function DashboardPage() {
+  const supabase = await createClient()
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <h1>Home</h1>
-    </div>
-  );
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
+
+
+  return(
+    <main>
+      <h1>Olá, {user.user_metadata.full_name}</h1>
+    </main>
+  )
 }

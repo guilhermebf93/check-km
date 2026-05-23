@@ -1,0 +1,17 @@
+.loginButton {
+  margin: 2em auto;
+  padding: 1em 3em;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  background: var(--color-text);
+  color: var(--color-surface-light);
+
+  font-size: 1.1rem;
+}
+
+.loginButton:hover {
+  background: var(--color-text-muted);
+  transition: var(--transition-default);
+}

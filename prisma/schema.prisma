@@ -8,16 +8,16 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  supabaseId  String   @unique
-  name        String?
-  email       String   @unique
-  avatarUrl   String?
+  id         String  @id @default(uuid())
+  supabaseId String  @unique
+  name       String?
+  email      String  @unique
+  avatarUrl  String?
 
   vehicles Vehicle[]
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Vehicle {
@@ -35,13 +35,101 @@ model Vehicle {
 
   type VehicleType
 
+  fuelRecords  FuelRecord[]
+  maintenances Maintenance[]
+  trips        Trip[]
+
   photoUrl String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+model FuelRecord {
+  id String @id @default(uuid())
+
+  vehicleId String
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  date DateTime
+
+  currentKm Int
+
+  liters Float
+
+  totalPrice Decimal @db.Decimal(10, 2)
+
+  fuelType FuelType
+
+  gasStation String?
+
+  notes String?
+
+  createdAt DateTime @default(now())
+}
+
+model Maintenance {
+  id String @id @default(uuid())
+
+  vehicleId String
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  title String
+
+  description String?
+
+  maintenanceType MaintenanceType
+
+  cost Decimal @db.Decimal(10, 2)
+
+  performedAt DateTime
+
+  performedKm Int
+
+  nextMaintenanceKm Int?
+
+  nextMaintenanceDt DateTime?
+
+  notes String?
+
+  createdAt DateTime @default(now())
+}
+
+model Trip {
+  id String @id @default(uuid())
+
+  vehicleId String
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  title String
+
+  startKm Int
+  endKm   Int
+
+  startDate DateTime
+  endDate   DateTime?
+
+  notes String?
+
+  createdAt DateTime @default(now())
+}
+
 enum VehicleType {
   CAR
   MOTORCYCLE
+}
+
+enum FuelType {
+  GASOLINE
+  ETHANOL
+  DIESEL
+  FLEX
+}
+
+enum MaintenanceType {
+  OIL_CHANGE
+  TIRES
+  BRAKES
+  REVIEW
+  GENERAL
 }
