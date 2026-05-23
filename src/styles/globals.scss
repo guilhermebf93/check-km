@@ -1,4 +1,4 @@
-@use './breakpoints.scss';
+@use './breakpoints.scss' as *;
 @use './mixins.scss';
 @use './variables.scss';
 @use './reset.scss';
@@ -37,4 +37,10 @@ main {
 ::-webkit-scrollbar-thumb {
   background: var(--color-surface-light);
   border-radius: 999px;
+}
+
+@include tablet {
+  main {
+    padding-left: 240px;
+  }
 }

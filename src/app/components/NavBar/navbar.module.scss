@@ -1,8 +1,103 @@
+@use '@/styles/breakpoints' as *;
+
 .navbar {
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 72px;
 
-  border: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-border);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  background: var(--color-surface);
+}
+
+.logoSection {
+  display: none;
+}
+
+.navList {
+  display: flex;
+}
+
+.navItem {
+  margin: 0 5px;
+  padding: 3px;
+  border-radius: var(--radius-md);
+}
+
+.navItem:hover, .active {
+  background: var(--color-surface-light);
+  transition: var(--transition-default);
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+}
+
+.label {
+  display: none;
+}
+
+@include tablet {
+  .navbar {
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-left: 10px;
+
+    border-top: none;
+    border-right: 2px solid var(--color-border);
+  }
+
+  .logoSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 0 24px;
+
+    h1 {
+      font-weight: 400;
+      padding: 0 10px;
+      font-size: 1.6rem;
+    }
+  }
+
+  .headerIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .navList {
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+  .navLink {
+    display: flex;
+    align-items: center;
+
+    margin: 5px;
+    padding: 5px 0;
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .label {
+    display: block;
+    padding-left: 15px;
+    font-size: 1.2rem;
+  }
 }

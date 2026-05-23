@@ -1,7 +1,8 @@
 @use "@/styles/mixins" as *;
 
 .loginMain {
-  height: 100vh;  
+  height: 100vh;
+  padding-left: 0;
 }
 
 .loginMain, .loginForm {

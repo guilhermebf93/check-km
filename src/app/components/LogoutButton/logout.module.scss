@@ -1,0 +1,45 @@
+@use '@/styles/breakpoints' as *;
+
+.logOutButton {
+  margin: 0 5px;
+  padding: 3px 15px 3px 5px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+}
+
+.logOutButton:hover {
+  background: var(--color-surface-light);
+  transition: var(--transition-default);
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+}
+
+.label {
+  display: none;
+}
+
+@include tablet {
+  .logOutButton {
+    display: flex;
+    align-items: center;
+
+    margin: 5px;
+    padding: 5px 10px;
+
+    margin-bottom: 50px;
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .label {
+    display: block;
+    padding-left: 15px;
+    font-size: 1.2rem;
+  }
+}

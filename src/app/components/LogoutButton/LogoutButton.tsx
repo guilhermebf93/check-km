@@ -1,8 +1,12 @@
 'use client'
 
+import styles from './logout.module.scss'
+
 import { createClient } from '@/lib/supabase/client'
 
-export default function LogoutButton() {
+import { LogOut } from 'lucide-react'
+
+export function LogoutButton() {
   async function handleLogout() {
     const supabase = createClient()
 
@@ -12,8 +16,9 @@ export default function LogoutButton() {
   }
 
   return (
-    <button onClick={handleLogout}>
-      Sair
+    <button onClick={handleLogout} className={styles.logOutButton}>
+      <LogOut className={styles.icon} />
+      <span className={styles.label}>Sair</span>
     </button>
   )
 }
