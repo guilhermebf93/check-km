@@ -1,6 +1,9 @@
 import { redirect } from 'next/navigation'
 
+import { VehicleProvider } from '@/contexts/VehicleContext'
+
 import { DashboardHeader } from '../components/DashboardHeader'
+import { DashboardContent } from '../components/DashboardContent'
 import { EmptyState } from '../components/EmptyState'
 
 import { getCurrentUser } from '@/lib/auth/get-user'
@@ -19,9 +22,29 @@ export default async function DashboardPage() {
 
   return(
     <main>
-      <DashboardHeader userName={user.name!} vehicles={userVehicles} />
 
-      {!hasVehicles && <EmptyState />}
+      {!hasVehicles ? (
+        <>
+          <DashboardHeader
+            userName={user.name!}
+            vehicles={userVehicles}
+          />
+
+          <EmptyState />
+        </>
+      ) : (
+        <VehicleProvider vehicles={userVehicles}>
+
+          <DashboardHeader
+            userName={user.name!}
+            vehicles={userVehicles}
+          />
+
+          <DashboardContent />
+
+        </VehicleProvider>
+      )}
+
     </main>
   )
 }
