@@ -1,6 +1,6 @@
 export type Vehicle = {
   model: string;
-  name: string;
+  name: string | null;
   id: string;
   createdAt: Date;
   updatedAt: Date;

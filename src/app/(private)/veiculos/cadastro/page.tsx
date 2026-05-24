@@ -17,7 +17,7 @@ export default async function newVehicle() {
     <main>
       <BackButton href='/veiculos' />
 
-      <VehicleForm userId={user.id} mode='create' />
+      <VehicleForm mode='create' />
     </main>
   )
 }

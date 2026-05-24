@@ -1,0 +1,64 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/breakpoints' as *;
+
+.listSection {
+  width: 100%;
+  padding: 1.5rem 1rem 72px;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 0;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.5rem;
+}
+
+.listBtn {
+  min-height: fit-content;
+
+  @include button-std;
+}
+
+.listGrid {
+  display: grid;
+  gap: 1rem;
+
+  grid-template-columns: 1fr;
+  align-content: start;
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  min-height: 0;
+
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem;
+}
+
+@include tablet {
+  .listHeader {
+    padding-right: 1rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .listGrid {
+    grid-template-columns: repeat(2, minmax(0, 500px));
+  }
+}
+
+@include desktop {
+  .listGrid {
+    grid-template-columns: repeat(3, minmax(0, 500px));
+  }
+}

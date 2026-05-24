@@ -1,0 +1,54 @@
+@use '@/styles/mixins' as *;
+
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+}
+
+.cardStyle {
+  min-height: 165px;
+  @include card;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  span {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+  }
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.typeIcon {
+  height: 72px;
+  width: 72px;
+  color: var(--color-text-muted);
+}
+
+.vehicleInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.year {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.currentKm {
+  font-size: 1.5rem;
+  font-weight: 700;
+}

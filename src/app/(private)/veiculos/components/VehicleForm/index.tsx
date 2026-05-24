@@ -4,23 +4,15 @@ import styles from './styles.module.scss'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { vehicleSchema, type VehicleFormData } from '@/schemas/vehicle'
+import { createVehicle } from '@/lib/vehicles/create-vehicle'
 
 import type { Vehicle } from '@/types/vehicle'
 
 
-type VehicleFormProps = |
-  {
-    userId: string,
-    mode: 'create'
-  } |
-  {
-    userId: string,
-    mode: 'edit',
-    vehicle: Vehicle
-  }
+type VehicleFormProps = | { mode: 'create' } | { mode: 'edit', vehicle: Vehicle}
 
 export function VehicleForm(props: VehicleFormProps) {
-  const { userId, mode } = props
+  const { mode } = props
   const isEdit = mode === 'edit'
   const vehicle = isEdit ? props.vehicle : null
   
@@ -32,14 +24,15 @@ export function VehicleForm(props: VehicleFormProps) {
     formState: { errors }
   } = form
 
-  const onSubmit: SubmitHandler<VehicleFormData> = formData => {
-    const data = {
-      userId,
-      ...formData
+  const onSubmit: SubmitHandler<VehicleFormData> = async data => {
+    const response = await createVehicle(data)
+    
+    if(!response.success) {
+      console.log(response.error)
+      return
     }
-    console.log(data)
 
-    // TODO: Conectar Server Action + Prisma. Salvar no banco.
+    console.log('Veículo criado')
   }
 
   return(
