@@ -1,12 +1,12 @@
 'use client'
 
-import styles from './navbar.module.scss'
+import styles from './styles.module.scss'
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-import { LogoutButton } from '../LogoutButton/LogoutButton'
+import { LogoutButton } from './components/LogoutButton'
 import {
   Gauge,
   House,

@@ -1,20 +1,23 @@
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
-//import { getCurrentUser } from '@/lib/auth/get-user'
+
+import { DashboardHeader } from '../components/DashboardHeader'
+
+import { getCurrentUser } from '@/lib/auth/get-user'
+import { getUserVehicles } from '@/lib/vehicles/get-user-vehicles'
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
 
-  const { data: { user } } = await supabase.auth.getUser()
+  const userDb = await getCurrentUser()
 
-  if (!user) {
+  if (!userDb) {
     redirect('/login')
   }
 
+  const userVehicles = await getUserVehicles(userDb.id)
 
   return(
     <main>
-      <h1>Olá, {user.user_metadata.full_name}</h1>
+      <DashboardHeader userName={userDb.name!} vehicles={userVehicles} />
     </main>
   )
 }
