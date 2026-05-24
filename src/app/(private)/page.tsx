@@ -1,23 +1,27 @@
 import { redirect } from 'next/navigation'
 
 import { DashboardHeader } from '../components/DashboardHeader'
+import { EmptyState } from '../components/EmptyState'
 
 import { getCurrentUser } from '@/lib/auth/get-user'
 import { getUserVehicles } from '@/lib/vehicles/get-user-vehicles'
 
 export default async function DashboardPage() {
 
-  const userDb = await getCurrentUser()
+  const user = await getCurrentUser()
 
-  if (!userDb) {
+  if (!user) {
     redirect('/login')
   }
 
-  const userVehicles = await getUserVehicles(userDb.id)
+  const userVehicles = await getUserVehicles(user.id)
+  const hasVehicles = userVehicles.length > 0
 
   return(
     <main>
-      <DashboardHeader userName={userDb.name!} vehicles={userVehicles} />
+      <DashboardHeader userName={user.name!} vehicles={userVehicles} />
+
+      {!hasVehicles && <EmptyState />}
     </main>
   )
 }

@@ -1,4 +1,5 @@
 'use client'
+import styles from './styles.module.scss'
 import type { Vehicle } from '@/types/vehicle'
 
 type VehicleSelectProps = {
@@ -8,7 +9,9 @@ type VehicleSelectProps = {
 export function VehicleSelect({ vehicles }: VehicleSelectProps) {
 
   return(
-    <select>
+    <select
+      className={styles.vehicleSelect}
+    >
       <option value='' disabled>Selecione um veículo</option>
       {vehicles.map(vehicle => (
         <option

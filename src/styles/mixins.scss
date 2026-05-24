@@ -11,6 +11,21 @@
   box-shadow: var(--shadow-sm);
 }
 
+@mixin button-std {
+  font-size: 1.2rem;
+  border: var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-surface-light);
+  padding: 0.9rem 1rem;
+
+  &:hover {
+    background: var(--color-primary-hover);
+    color: var(--color-text);
+    transition: var(--transition-default);
+  }
+}
+
 @mixin hover-opacity {
   transition: opacity var(--transition-default);
 
