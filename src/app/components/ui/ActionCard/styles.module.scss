@@ -1,0 +1,21 @@
+@use '@/styles/mixins' as *;
+
+.cardContainer {
+  @include card;
+
+  border-radius: var(--radius-sm);
+  align-items: center;
+  cursor: pointer;
+
+  width: 150px;
+  height: 110px;
+
+  span {
+    text-align: center;
+  }
+}
+
+.cardIcon {
+  width: 24px;
+  height: 24px;
+}

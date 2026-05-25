@@ -1,0 +1,25 @@
+@use '@/styles/mixins' as *;
+
+.cardContainer {
+  width: fit-content;
+  min-width: 220px;
+  min-height: 155px;
+
+  @include card;
+  border-radius: var(--radius-sm);
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted)
+  }
+}
+
+.cardValue {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
