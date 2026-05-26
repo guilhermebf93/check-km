@@ -19,6 +19,7 @@ body {
 
 main {
   width: 100%;
+  max-width: 1200px;
   padding: 10px;
 }
 
@@ -43,5 +44,11 @@ main {
 @include tablet {
   main {
     padding: 20px 20px 20px 260px;
+  }
+}
+
+@include desktop {
+  main {
+    padding-left: 340px;
   }
 }

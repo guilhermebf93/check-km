@@ -101,3 +101,10 @@
     font-size: 1.2rem;
   }
 }
+
+@include desktop {
+  .navbar {
+    width: 320px;
+    padding-left: 20px;
+  }
+}

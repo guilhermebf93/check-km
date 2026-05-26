@@ -45,8 +45,6 @@
 
 @include tablet {
   .listHeader {
-    padding-right: 1rem;
-
     h2 {
       font-size: 2rem;
     }
@@ -54,11 +52,5 @@
 
   .listGrid {
     grid-template-columns: repeat(2, minmax(0, 500px));
-  }
-}
-
-@include desktop {
-  .listGrid {
-    grid-template-columns: repeat(3, minmax(0, 500px));
   }
 }
