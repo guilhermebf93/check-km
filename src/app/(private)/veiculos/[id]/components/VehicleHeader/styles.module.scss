@@ -1,0 +1,76 @@
+@use '@/styles/breakpoints' as *;
+
+.imgSection {
+  position: relative;
+  overflow: hidden;
+  width: 356px;
+  height: 200px;
+
+  margin: 1rem auto 0;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.infoSection {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.3rem;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.typeCard {
+  max-width: fit-content;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  margin-top: 0.5rem;
+
+  font-weight: 700;
+}
+
+.createdInfo {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding-top: 0.2rem;
+}
+
+@include tablet {
+  .headerMain {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .imgSection {
+    margin: 1rem 0 0
+  }
+}
+
+@include desktop {
+  .infoSection {
+    gap: 0.5rem;
+
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  .subtitle {
+    font-size: 1.3rem;
+  }
+
+  .typeCard {
+    font-size: 1.2rem;
+  }
+
+  .createdInfo {
+    font-size: 1rem;
+  }
+}

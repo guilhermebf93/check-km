@@ -1,0 +1,12 @@
+@use '@/styles/mixins' as *;
+
+.navSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editButton {
+  min-height: 2em;
+
+  @include button-std;
+}

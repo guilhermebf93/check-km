@@ -1,13 +1,15 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+
 import { vehicleSchema } from '@/schemas/vehicle'
 import { getCurrentUser } from '../auth/get-user'
+import { getVehicleById } from './get-vehicle-by-id'
 
 import { revalidatePath } from 'next/cache'
 
-export async function createVehicle (data: unknown) {
-  const user = await getCurrentUser();
+export async function updateVehicle(id: string, data: unknown) {
+  const user = await getCurrentUser()
 
   if (!user) {
     return {
@@ -18,33 +20,45 @@ export async function createVehicle (data: unknown) {
 
   const parsedData = vehicleSchema.safeParse(data)
 
-  if (!parsedData.success) {
+  if(!parsedData.success) {
     return {
       success: false,
       error: 'Dados inválidos'
     }
   }
 
-  let vehicle
-  
+  const vehicleInDb = await getVehicleById(id, user.id)
+
+  if (!vehicleInDb) {
+    return {
+      success: false,
+      error: 'Usuário não autorizado a editar esse veículo'
+    }
+  }
+
+  let vehicle;
+
   try {
-    vehicle = await prisma.vehicle.create({
+    vehicle = await prisma.vehicle.update({
+      where: {
+        id
+      },
       data: {
-        userId: user.id,
         ...parsedData.data
       }
     })
-  } catch(error) {
-    console.error(error)
+  } catch (error) {
+    console.log(error)
 
     return {
       success: false,
-      error: 'Erro ao cadastrar veículo'
+      error: 'Erro ao atualizar veículo'
     }
   }
 
   revalidatePath('/veiculos')
-  
+  revalidatePath(`/veiculos/${id}`)
+
   return {
     success: true,
     vehicleId: vehicle.id

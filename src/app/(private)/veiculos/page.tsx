@@ -10,7 +10,7 @@ import { BackButton } from '@/app/components/ui/BackButton'
 
 import type { Vehicle } from '@/types/vehicle'
 
-export default async function VehiclePage() {
+export default async function VehicleListPage() {
   const user = await getCurrentUser()
 
   if (!user) {

@@ -1,10 +1,12 @@
 'use client'
 import styles from './styles.module.scss'
 
+import { useRouter } from 'next/navigation'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { vehicleSchema, type VehicleFormData } from '@/schemas/vehicle'
 import { createVehicle } from '@/lib/vehicles/create-vehicle'
+import { updateVehicle } from '@/lib/vehicles/update-vehicle'
 
 import type { Vehicle } from '@/types/vehicle'
 
@@ -15,8 +17,14 @@ export function VehicleForm(props: VehicleFormProps) {
   const { mode } = props
   const isEdit = mode === 'edit'
   const vehicle = isEdit ? props.vehicle : null
+
+  const router = useRouter()
   
   const form = useForm<VehicleFormData>({ resolver: zodResolver(vehicleSchema) })
+
+  if (isEdit && !vehicle) {
+    return null
+  }
 
   const {
     register,
@@ -25,14 +33,16 @@ export function VehicleForm(props: VehicleFormProps) {
   } = form
 
   const onSubmit: SubmitHandler<VehicleFormData> = async data => {
-    const response = await createVehicle(data)
+    const response = isEdit ?
+      await updateVehicle(vehicle!.id, data) :
+      await createVehicle(data)
     
-    if(!response.success) {
+    if (!response.success) {
       console.log(response.error)
       return
     }
 
-    console.log('Veículo criado')
+    router.push(`/veiculos/${response.vehicleId}`)
   }
 
   return(
@@ -46,7 +56,7 @@ export function VehicleForm(props: VehicleFormProps) {
       <input
         id='name'
         type='text'
-        defaultValue={isEdit ? vehicle?.name : ''}
+        defaultValue={isEdit ? vehicle?.name ?? '' : ''}
         placeholder='Nome do veículo (Opcional)'
         {...register('name')}
       />
@@ -96,7 +106,6 @@ export function VehicleForm(props: VehicleFormProps) {
         type='number'
         defaultValue={isEdit ? vehicle?.currentKm : ''}
         placeholder='0'
-        disabled={isEdit}
         {...register('currentKm')}
       />
       {errors.currentKm && (
