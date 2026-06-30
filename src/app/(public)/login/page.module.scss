@@ -1,8 +1,8 @@
 @use "@/styles/mixins" as *;
+@use "@/styles/breakpoints" as *;
 
 .loginMain {
   height: 100vh;
-  padding-left: 20px;
 }
 
 .loginMain, .loginForm {
@@ -34,4 +34,11 @@
 
 .terms {
   text-decoration: underline;
+}
+
+@include tablet {
+  .loginMain {
+    padding: 25px;
+    margin: auto;
+  }
 }
