@@ -8,17 +8,23 @@ import {
   Wrench
 } from 'lucide-react'
 
-import { ActionCard } from '../ui/ActionCard'
+import type { Vehicle } from '@/types/vehicle'
+import { ActionCard, type ActionCardProps } from '../ui/ActionCard'
+import { UpdateKmModal } from '../modals/UpdateKmModal'
+import { useState } from 'react'
 
-import type { ActionCardProps } from '../ui/ActionCard'
+type ActionCardsProps = {
+  vehicle: Vehicle
+}
 
-export function ActionCards() {
+export function ActionCards({ vehicle }: ActionCardsProps) {
+  const [isModalOpen, setIsModalOpen] = useState(true)
 
   const cardsData: ActionCardProps[] = [
     {
       icon: Gauge,
       label: 'Atualizar Quilometragem',
-      href: '/#',
+      onClick: () => setIsModalOpen(true),
     },
     {
       icon: Road,
@@ -44,14 +50,28 @@ export function ActionCards() {
       <ul className={styles.actionCards}>
         {cardsData.map((card, index) => (
           <li key={index}>
-            <ActionCard
-              icon={card.icon}
-              label={card.label}
-              href={card.href}
-            />
+            {'href' in card ? (
+              <ActionCard
+                icon={card.icon}
+                label={card.label}
+                href={card.href!}
+              />
+            ) : (
+              <ActionCard
+                icon={card.icon}
+                label={card.label}
+                onClick={card.onClick}
+              />
+            )}
           </li>
         ))}
       </ul>
+
+      <UpdateKmModal 
+        vehicle={vehicle}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   )
 }

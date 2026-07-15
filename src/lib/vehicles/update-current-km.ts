@@ -2,13 +2,13 @@
 
 import { prisma } from '@/lib/prisma'
 
-import { vehicleSchema } from '@/schemas/vehicle'
+import { updateVehicleKmSchema } from '@/schemas/update-vehicle-km'
 import { getCurrentUser } from '../auth/get-user'
 import { getVehicleById } from './get-vehicle-by-id'
 
 import { revalidatePath } from 'next/cache'
 
-export async function updateVehicle(id: string, data: unknown) {
+export async function updateCurrentKm(id: string, newKm: number) {
   const user = await getCurrentUser()
 
   if (!user) {
@@ -18,9 +18,11 @@ export async function updateVehicle(id: string, data: unknown) {
     }
   }
 
-  const parsedData = vehicleSchema.safeParse(data)
+  const parsedKm = updateVehicleKmSchema.safeParse({
+    newKm
+  })
 
-  if (!parsedData.success) {
+  if (!parsedKm.success) {
     return {
       success: false,
       error: 'Dados inválidos'
@@ -32,11 +34,18 @@ export async function updateVehicle(id: string, data: unknown) {
   if (!vehicleInDb) {
     return {
       success: false,
-      error: 'Usuário não autorizado a editar esse veículo'
+      error: 'Usuário não autorizado'
     }
   }
 
-  let vehicle;
+  if (parsedKm.data.newKm <= vehicleInDb.currentKm) {
+    return {
+      success: false,
+      error: 'A quilometragem deve ser maior que a atual'
+    }
+  }
+
+  let vehicle
 
   try {
     vehicle = await prisma.vehicle.update({
@@ -44,11 +53,11 @@ export async function updateVehicle(id: string, data: unknown) {
         id
       },
       data: {
-        ...parsedData.data
+        currentKm: parsedKm.data.newKm
       }
     })
-  } catch (error) {
-    console.log(error)
+  } catch(error) {
+    console.error(error)
 
     return {
       success: false,
@@ -56,11 +65,13 @@ export async function updateVehicle(id: string, data: unknown) {
     }
   }
 
-  revalidatePath('/veiculos')
-  revalidatePath(`/veiculos/${id}`)
-
+  revalidatePath('/');
+  revalidatePath('/veiculos');
+  revalidatePath(`/veiculos/${id}`);
+  
   return {
     success: true,
-    vehicleId: vehicle.id
+    vehicleId: vehicle.id,
+    currentKm: vehicle.currentKm,
   }
 }

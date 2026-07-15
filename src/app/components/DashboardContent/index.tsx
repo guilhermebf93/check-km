@@ -56,7 +56,7 @@ export function DashboardContent() {
         ))}
       </ul>
 
-      <ActionCards />
+      <ActionCards vehicle={activeVehicle} />
 
     </section>
   )

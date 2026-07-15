@@ -1,0 +1,25 @@
+@use '@/styles/mixins' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(5px);
+
+  @include flex-center;
+}
+
+.modal {
+  width: min(420px, 90vw);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-light);
+  padding: 2rem;
+
+  h1 {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
+
