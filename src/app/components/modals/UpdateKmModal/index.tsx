@@ -29,7 +29,11 @@ export function UpdateKmModal({
   const {
     register,
     handleSubmit,
-    formState: { isValid }
+    setFocus,
+    formState: {
+      isValid,
+      isSubmitting
+    }
   } = form
 
   const newKm = useWatch({
@@ -55,6 +59,12 @@ export function UpdateKmModal({
   }
 
   useEffect(() => {
+    if (isOpen) {
+      setFocus('newKm')
+    }
+  }, [isOpen, setFocus])
+
+  useEffect(() => {
     function handleKeyDown (e: KeyboardEvent) {
       if (e.key === 'Escape') {
         onClose()
@@ -77,14 +87,16 @@ export function UpdateKmModal({
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <h1>Atualizar KM</h1>
 
-            {vehicle.name ? (
-              <h2>{vehicle.name}</h2>
-            ) : (
-              <h2>{vehicle.brand} {vehicle.model}</h2>
-            )}
-            
-            <p>Atual: <span className={styles.currentNumber}>{vehicle.currentKm}</span></p>
-            
+            <div className={styles.currentVehicle}>
+              {vehicle.name ? (
+                <h2>{vehicle.name}</h2>
+              ) : (
+                <h2>{vehicle.brand} {vehicle.model}</h2>
+              )}
+              
+              <p>Atual: <span className={styles.currentNumber}>{vehicle.currentKm} km</span></p>
+            </div>
+
             <form 
               className={styles.form}
               onSubmit={handleSubmit(onSubmit)}
@@ -92,20 +104,26 @@ export function UpdateKmModal({
               <input
                 id='newKm' 
                 type='number'
+                disabled={isSubmitting}
                 className={styles.newKmInput}
                 {...register('newKm', {
                   valueAsNumber: true,
                 })}
               />
               {difference > 0 ? (
-                <p>+ {difference} km</p>
+                <p className={styles.valid}>+ {difference} km</p>
               ) : (
-                <p>A nova quilometragem deve ser superior à atual</p>
+                <p className={styles.notValid}>A nova quilometragem deve ser superior à atual</p>
               )}
 
               <div className={styles.buttons}>
                 <button type='button' onClick={onClose}>Cancelar</button>
-                <button type='submit' disabled={!isButtonValid}>Atualizar</button>
+                <button
+                  type='submit' 
+                  disabled={!isButtonValid || isSubmitting}
+                >
+                  {isSubmitting ? 'Atualizando...' : 'Atualizar'}
+                </button>
               </div>
               
             </form>

@@ -25,10 +25,15 @@
   color: var(--color-surface-light);
   padding: 0.9rem 1rem;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--color-primary-hover);
     color: var(--color-text);
     transition: var(--transition-default);
+  }
+
+  &:disabled {
+    opacity: .7;
+    cursor: not-allowed;
   }
 }
 

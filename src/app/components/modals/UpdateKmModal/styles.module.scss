@@ -23,3 +23,62 @@
   }
 }
 
+.currentVehicle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.currentNumber {
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.newKmInput {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.valid {
+  text-align: center;
+  font-weight: 500;
+}
+
+.notValid {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.buttons {
+  display: flex;
+  margin-top: 1.2rem;
+  justify-content: center;
+  gap: 30;
+
+ button {
+  @include button-std;
+
+  color: var(--color-text);
+  font-weight: 600;
+ }
+
+ button[type='button'] {
+  background-color: var(--color-danger);
+  
+  &:hover {
+    background: var(--color-danger-hover);
+    transition: var(--transition-default);
+  }
+ }
+}

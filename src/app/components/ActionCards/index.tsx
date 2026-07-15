@@ -18,7 +18,7 @@ type ActionCardsProps = {
 }
 
 export function ActionCards({ vehicle }: ActionCardsProps) {
-  const [isModalOpen, setIsModalOpen] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const cardsData: ActionCardProps[] = [
     {
