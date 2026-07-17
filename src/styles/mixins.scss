@@ -17,16 +17,19 @@
   transition: var(--transition-default);
 }
 
-@mixin button-std {
+@mixin button(
+  $bg,
+  $hover
+) {
   font-size: 1.2rem;
   border: var(--color-border);
   border-radius: var(--radius-sm);
-  background: var(--color-primary);
-  color: var(--color-surface-light);
+  color: var(--color-text);
   padding: 0.9rem 1rem;
+  background: $bg;
 
   &:hover:not(:disabled) {
-    background: var(--color-primary-hover);
+    background: $hover;
     color: var(--color-text);
     transition: var(--transition-default);
   }
@@ -35,6 +38,20 @@
     opacity: .7;
     cursor: not-allowed;
   }
+}
+
+@mixin button-std {
+  @include button(
+    var(--color-primary),
+    var(--color-primary-hover)
+  );
+}
+
+@mixin button-danger {
+  @include button(
+    var(--color-danger),
+    var(--color-danger-hover)
+  );
 }
 
 @mixin hover-opacity {

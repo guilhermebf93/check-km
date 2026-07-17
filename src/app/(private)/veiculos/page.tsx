@@ -27,7 +27,7 @@ export default async function VehicleListPage() {
       {
         hasVehicles ?
         <VehicleList vehicles={vehicles} /> :
-        <EmptyState />
+        <EmptyState page='vehicles' />
       }
     </main>
   )

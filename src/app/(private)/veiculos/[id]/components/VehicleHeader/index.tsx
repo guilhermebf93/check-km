@@ -2,20 +2,26 @@ import styles from './styles.module.scss'
 
 import Image from 'next/image'
 
+import type { Vehicle } from '@/types/vehicle'
+
 type VehicleHeaderProps = {
-  brand: string,
-  model: string,
-  year: number,
-  type: 'CAR' | 'MOTORCYCLE',
-  createdAt: Date,
-  photoUrl?: string | null,
-  name?: string | null,
+  vehicle: Vehicle
 }
 
 export function VehicleHeader({
-  brand, model, year, type, createdAt, photoUrl, name
+  vehicle
 }: VehicleHeaderProps) {
 
+  const {
+    name,
+    brand,
+    model,
+    year,
+    //currentKm,
+    photoUrl,
+    type,
+    createdAt,
+  } = vehicle
 
   return(
     <article className={styles.headerMain}>

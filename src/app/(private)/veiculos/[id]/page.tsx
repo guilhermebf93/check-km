@@ -7,7 +7,8 @@ import { getCurrentUser } from '@/lib/auth/get-user'
 import { getVehicleById } from '@/lib/vehicles/get-vehicle-by-id'
 
 import { VehicleHeader } from './components/VehicleHeader'
-import { CurrentKmSection } from './components/currentKmSection'
+import { CurrentKmSection } from './components/CurrentKmSection'
+import { DeleteVehicle } from './components/DeleteVehicle'
 import { BackButton } from '@/app/components/ui/BackButton'
 
 type VehiclePageProps = {
@@ -28,41 +29,28 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
   if(!vehicle)
     notFound()
 
-  const {
-    name,
-    brand,
-    model,
-    year,
-    currentKm,
-    photoUrl,
-    type,
-    createdAt,
-  } = vehicle
-
   return(
     <main>
       <nav className={styles.navSection}>
         <BackButton href='/veiculos' />
-        <Link
+        <div>
+          <DeleteVehicle vehicle={vehicle} />
+          <Link
           href={`/veiculos/${id}/editar`}
           className={styles.editButton}
         >
           Editar
         </Link>
+        </div>
+        
       </nav>
       
 
       <VehicleHeader
-        brand={brand}
-        model={model}
-        year={year}
-        type={type}
-        photoUrl={photoUrl}
-        name={name}
-        createdAt={createdAt}        
+        vehicle={vehicle}       
       />
 
-      <CurrentKmSection current={currentKm} />
+      <CurrentKmSection current={vehicle.currentKm} />
 
     </main>
   )
