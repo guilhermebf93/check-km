@@ -2,7 +2,7 @@ import styles from './styles.module.scss'
 
 import type { Vehicle } from '@/types/vehicle'
 
-import { VehicleSelect } from './components/VehicleSelect'
+import { VehicleSelect } from '../VehicleSelect'
 
 type DashboardHeaderProps = {
   userName: string,

@@ -30,7 +30,7 @@ export default async function DashboardPage() {
             vehicles={userVehicles}
           />
 
-          <EmptyState />
+          <EmptyState page='vehicles' />
         </>
       ) : (
         <VehicleProvider vehicles={userVehicles}>

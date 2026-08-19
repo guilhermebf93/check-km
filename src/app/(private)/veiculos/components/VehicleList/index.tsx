@@ -15,7 +15,7 @@ export function VehicleList({ vehicles }: VehicleListProps) {
   return(
     <section className={styles.listSection}>
       <header className={styles.listHeader}>
-        <h2>Lista de veículos</h2>
+        <h2>Veículos</h2>
 
         <Link
           href='/veiculos/cadastro'
