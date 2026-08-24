@@ -10,7 +10,7 @@ export function LoginButton() {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'https://check-km.vercel.app/auth/callback',
+        redirectTo: 'https://check-km.vercel.app/check-km/auth/callback',
       }
     })
   }
